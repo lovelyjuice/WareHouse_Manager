@@ -20,7 +20,7 @@ public class Form implements Serializable
 			{
 				System.out.print("有货物"+temp.name+"到达仓库了！请设置出售价格：");
 				double price=in.nextDouble();
-				house.store(temp.name,temp.mount,"",price);
+				house.store(temp.name,temp.mount,temp.desc,price);
 				oldRecord.add(newRecord.remove(i));
 				i--;
 			}
@@ -36,9 +36,18 @@ public class Form implements Serializable
 		}
 	}
 	
-	public void order(String name, int mount, String supplier, int costHour)
+	public void checkRecord()
+	{
+		for(int i=0;i<newRecord.size();i++)
+		{
+			Record aRecord=oldRecord.get(i);
+			System.out.println("商品名称："+aRecord.name+" 供应商："+aRecord.supplier+" 数量："+aRecord.mount+" 到达时间："+aRecord.createDate.get(Calendar.YEAR)+"年"+(aRecord.reachDate.get(Calendar.MONTH)+1)+"月"+aRecord.reachDate.get(Calendar.DATE)+"日"+aRecord.reachDate.get(Calendar.HOUR_OF_DAY)+"时");
+		}
+	}
+	
+	public void order(String name, int mount, String supplier,String desc, int costHour)
 	{
 		Scanner in=new Scanner(System.in);
-		this.newRecord.add(new Record(name,mount,supplier,costHour));
+		this.newRecord.add(new Record(name,mount,supplier,desc,costHour));
 	}
 }

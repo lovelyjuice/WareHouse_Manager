@@ -78,7 +78,7 @@ public class Warehouse implements Serializable
 	{
 		Comparator<Sortclass> comparator=new Comparator<Sortclass>()		//http://blog.csdn.net/andywangcn/article/details/8285504
 		{																	//定义比较器
-			public int compare(Sortclass a,Sortclass b)						//定义排序方法
+			public int compare(Sortclass a,Sortclass b)						//定义比较方法
 			{
 				return (int)(a.yearTuruover-b.yearTuruover);
 			}
@@ -88,20 +88,20 @@ public class Warehouse implements Serializable
 		for(String key:goods.get(name).turnover.keySet())			//将不可排序的HashMap转化为可排序的ArrayList
 		{
 			Sortclass t=new Sortclass();
-			t.year=Integer.parseInt(key);								//年份赋值给t.year
+			t.year=key;								//年份赋值给t.year
 			t.yearTuruover=goods.get(name).turnover.get(key)[1][12];	//年营业额赋值给t.yearTuruover
 			temp.add(t);
 		}
 		Collections.sort(temp,comparator);
 		for(int i=0;i<temp.size();i++)
 		{
-			System.out.printf("%.2f元(%d年) \n",temp.get(i).yearTuruover,temp.get(i).year);
+			System.out.printf("%.2f元(%s年) \n",temp.get(i).yearTuruover,temp.get(i).year);
 		}
 	}
 }
 
 class Sortclass
 {
-	public int year;
+	public String year;
 	public double yearTuruover;
 }

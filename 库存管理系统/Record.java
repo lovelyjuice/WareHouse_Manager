@@ -7,16 +7,18 @@ public class Record implements Serializable
 	String name;
 	int mount;
 	String supplier;
+	String desc;
 	Calendar createDate;				//http://www.w3cschool.cn/java/java-date-time.html
 	int costHour;
 	Calendar reachDate;
 	
-	public Record(String name, int mount, String supplier, int costHour) 
+	public Record(String name, int mount, String supplier,String desc, int costHour) 
 	{
 		this.name = name;
 		this.mount = mount;
 		this.supplier = supplier;
 		this.costHour=costHour;
+		this.desc=desc;
 		this.createDate = Calendar.getInstance();
 		this.reachDate =(Calendar)this.createDate.clone();
 		this.reachDate.add(Calendar.HOUR_OF_DAY, costHour);

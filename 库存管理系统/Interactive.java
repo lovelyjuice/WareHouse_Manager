@@ -1,7 +1,9 @@
 package 库存管理系统;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.*;
+import java.text.NumberFormat;
 public class Interactive 
 {
 
@@ -11,21 +13,23 @@ public class Interactive
 		Form form;
 		Warehouse house;
 		try{
-			ObjectInputStream oishouse=new ObjectInputStream(new FileInputStream("warehouse.dat"));
-			ObjectInputStream oisform=new ObjectInputStream(new FileInputStream("form.dat"));
+			ObjectInputStream oishouse=new ObjectInputStream(new FileInputStream("D:\\warehouse.dat"));
+			ObjectInputStream oisform=new ObjectInputStream(new FileInputStream("D:\\form.dat"));
 			form=(Form)oisform.readObject();
 			house=(Warehouse)oishouse.readObject();
+			oishouse.close();
+			oisform.close();
 		}catch(FileNotFoundException e)
 		{
 			form=new Form();
 			house=new Warehouse();
 		}
 		String name;
-		Scanner in = new Scanner(System.in);
 		int select;
 		while(true)
-		{
-			System.out.println("*****************************************\n请选择操作：\n1.取货  2.下订单  3.刷新库存  4.销售统计  5.历史订单 6.查看仓库 7.保存更改");
+		{	try{
+			System.out.println("*****************************************\n请选择操作：\n1.取货  2.下订单  3.刷新库存  4.销售统计\n5.待收货订单  6.历史订单  7.查看仓库  8.保存更改");
+			Scanner in = new Scanner(System.in);
 			select=in.nextInt();
 			switch(select)
 			{
@@ -40,8 +44,8 @@ public class Interactive
 					System.out.println("缺货！您所取的货物只剩下"+house.goods.get(name).mount+"件了");
 				break;
 			case 2:
-				System.out.println("请输入货物名称，数量，供应商和运输时间：");
-				form.order(in.next(), in.nextInt(),in.next(),in.nextInt());
+				System.out.println("请输入货物名称，数量，供应商，描述和运输时间：");
+				form.order(in.next(), in.nextInt(),in.next(),in.next(),in.nextInt());
 				break;
 			case 3:
 				form.refresh(house);
@@ -61,21 +65,27 @@ public class Interactive
 					}
 				break;
 			case 5:
-				form.history();
+				form.checkRecord();
 				break;
 			case 6:
-				house.printHouse();
+				form.history();
 				break;
 			case 7:
-				in.close();
-				ObjectOutputStream ooshouse=new ObjectOutputStream(new FileOutputStream("warehouse.dat"));
-				ObjectOutputStream oosform=new ObjectOutputStream(new FileOutputStream("form.dat"));
+				house.printHouse();
+				break;
+			case 8:
+				ObjectOutputStream ooshouse=new ObjectOutputStream(new FileOutputStream("D:\\warehouse.dat"));
+				ObjectOutputStream oosform=new ObjectOutputStream(new FileOutputStream("D:\\form.dat"));
 				ooshouse.writeObject(house);
 				oosform.writeObject(form);
 				break;
 			}
+			}catch(InputMismatchException e)				//预防错误的输入
+				{
+				System.out.println("输入有误，请重新输入");
+				continue;
+				}
 		}
-		
 	}
 }
 
