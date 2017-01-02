@@ -22,6 +22,6 @@ public class Item implements Serializable
 	
 	public String toString()
 	{
-		return "商品名称："+this.name+" 数量："+this.mount+" 单价："+this.price;
+		return "商品名称："+this.name+" 数量："+this.mount+" 单价："+this.price+" 描述："+this.description;
 	}
 }
