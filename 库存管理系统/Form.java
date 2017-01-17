@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class Form implements Serializable
 {
-	ArrayList<Record> newRecord=new ArrayList<Record>();
-	ArrayList<Record> oldRecord=new ArrayList<Record>();
+	ArrayList<Record> newRecord= new ArrayList<>();
+	ArrayList<Record> oldRecord= new ArrayList<>();
 	
 	public void refresh(Warehouse house)
 	{
