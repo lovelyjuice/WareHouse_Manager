@@ -1,7 +1,6 @@
 package 库存管理系统;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.HashMap;
 
 public class Item implements Serializable
@@ -10,7 +9,7 @@ public class Item implements Serializable
 	String description;
 	int mount;
 	double price;
-	HashMap<String,double[]> turnover=new HashMap<String,double[]>();
+	HashMap<String,double[]> turnover= new HashMap<>();
 	
 	public Item(String name, String description, int mount,double price) 
 	{

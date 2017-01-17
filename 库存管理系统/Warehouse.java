@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Warehouse implements Serializable
 {
-	HashMap<String,Item> goods=new HashMap<String,Item>();
+	HashMap<String,Item> goods= new HashMap<>();
 
 	public void store(String name,int mount,String description,double price)
 	{
@@ -28,7 +28,7 @@ public class Warehouse implements Serializable
 	{
 		if(!goods.containsKey(name))return 0;							//状态码0表示货物不存在
 		Item item=goods.get(name);
-		if(item.mount-fetchMount<0)return 1;					//取货量超过库存
+		if(item.mount-fetchMount<0)return 1;					//1表示取货量超过库存
 		item.mount-=fetchMount;
 		String year=Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
 		int month=Calendar.getInstance().get(Calendar.MONTH);		//这个方法返回的month=1代表二月，2代表3月
@@ -51,7 +51,7 @@ public class Warehouse implements Serializable
 	
 	public void sortByMonth(String name,String year)
 	{
-		double[][] a=new double[2][12];
+		double[][] a=new double[2][12];		//临时数组
 		int i,j;
 		double yeartemp,datatemp;
 		if(!goods.containsKey(name))
@@ -87,7 +87,7 @@ public class Warehouse implements Serializable
 	
 	public void sortByYear(String name)
 	{
-		Comparator<Sortclass> comparator=new Comparator<Sortclass>()		//http://blog.csdn.net/andywangcn/article/details/8285504
+		Comparator<Sortclass> comparator=new Comparator<Sortclass>()			//http://blog.csdn.net/andywangcn/article/details/8285504
 		{																	//定义比较器
 			public int compare(Sortclass a,Sortclass b)						//定义比较方法
 			{
@@ -95,7 +95,7 @@ public class Warehouse implements Serializable
 			}
 		};
 		
-		ArrayList<Sortclass> temp=new ArrayList<Sortclass>();
+		ArrayList<Sortclass> temp= new ArrayList<>();
 		for(String key:goods.get(name).turnover.keySet())			//将不可排序的HashMap转化为可排序的ArrayList
 		{
 			Sortclass t=new Sortclass();

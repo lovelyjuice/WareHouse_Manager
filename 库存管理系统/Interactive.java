@@ -3,11 +3,11 @@ package 库存管理系统;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.*;
-import java.text.NumberFormat;
-public class Interactive 
+
+public class Interactive
 {
 
-	public static void main(String[] args) throws IOException, ClassNotFoundException 
+	public static void main(String[] args) throws IOException, ClassNotFoundException
 	{
 		System.out.println("欢迎来到库存管理系统！");
 		Form form;
@@ -19,7 +19,7 @@ public class Interactive
 			house=(Warehouse)oishouse.readObject();
 			oishouse.close();
 			oisform.close();
-		}catch(FileNotFoundException e)
+		}catch(FileNotFoundException e)		//文件不存在则new一个对象
 		{
 			form=new Form();
 			house=new Warehouse();
@@ -28,12 +28,12 @@ public class Interactive
 		int select;
 		while(true)
 		{	try{
-				System.out.println("*****************************************\n请选择操作：\n1.取货  2.下订单  3.刷新库存  4.销售统计\n5.待收货订单  6.历史订单  7.查看仓库  8.查看缺货商品\n9.保存更改");
-				Scanner in = new Scanner(System.in);
-				select=in.nextInt();
-				switch(select)
-				{
-				case 1:	
+			System.out.println("*****************************************\n请选择操作：\n1.取货  2.下订单  3.收货  4.销售统计\n5.待收货订单  6.历史订单  7.查看仓库  8.查看缺货商品\n9.保存更改");
+			Scanner in = new Scanner(System.in);
+			select=in.nextInt();
+			switch(select)
+			{
+				case 1:
 					System.out.println("请输入货物名称，数量");
 					int a=house.fetch(name=in.next(),in.nextInt());
 					if(a==2)
@@ -52,8 +52,8 @@ public class Interactive
 					break;
 				case 4:
 					System.out.println("请选择操作： 1.按年销售额排序  2.按月销售额排序");
-						switch(in.nextInt())
-						{
+					switch(in.nextInt())
+					{
 						case 1:
 							System.out.println("请输入商品名称：");
 							house.sortByYear(in.next());
@@ -62,7 +62,7 @@ public class Interactive
 							System.out.println("请输入商品名称和年份：");
 							house.sortByMonth(in.next(), in.next());
 							break;
-						}
+					}
 					break;
 				case 5:
 					form.checkRecord();
@@ -84,12 +84,11 @@ public class Interactive
 					oosform.close();
 					ooshouse.close();
 					break;
-				}
-			}catch(InputMismatchException e)				//预防错误的输入
-			{
-				System.out.println("输入有误，请重新输入");
-				continue;
 			}
+		}catch(InputMismatchException e)				//预防错误的输入
+		{
+			System.out.println("输入有误，请重新输入");
+		}
 		}
 	}
 }
