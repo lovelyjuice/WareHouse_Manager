@@ -10,7 +10,7 @@ public class Item implements Serializable
 	String description;
 	int mount;
 	double price;
-	HashMap<String,double[][]> turnover=new HashMap<String,double[][]>();
+	HashMap<String,double[]> turnover=new HashMap<String,double[]>();
 	
 	public Item(String name, String description, int mount,double price) 
 	{

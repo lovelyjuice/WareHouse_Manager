@@ -31,14 +31,13 @@ public class Warehouse implements Serializable
 		if(item.mount-fetchMount<0)return 1;					//取货量超过库存
 		item.mount-=fetchMount;
 		String year=Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
-		int month=Calendar.getInstance().get(Calendar.MONTH);
+		int month=Calendar.getInstance().get(Calendar.MONTH);		//这个方法返回的month=1代表二月，2代表3月
 		if(!item.turnover.containsKey(year))
 		{
-			item.turnover.put(year, new double[2][13]);
-			for(int i=0;i<13;i++)item.turnover.get(year)[0][i]=i;
+			item.turnover.put(year, new double[13]);
 		}		
-		item.turnover.get(year)[1][month]+=fetchMount*item.price;
-		item.turnover.get(year)[1][12]+=fetchMount*item.price;
+		item.turnover.get(year)[month]+=fetchMount*item.price;
+		item.turnover.get(year)[12]+=fetchMount*item.price;
 		return 2;
 	}
 	
@@ -57,7 +56,11 @@ public class Warehouse implements Serializable
 			System.out.println("该年没有销售数据");
 			return;
 		}
-		for(i=0;i<2;i++)for(j=0;j<12;j++)a[i][j]=goods.get(name).turnover.get(year)[i][j];
+		for(j=0;j<12;j++)
+		{
+			a[0][j]=j;			
+			a[1][j]=goods.get(name).turnover.get(year)[j];
+		}
 		for(i=0;i<12;i++)
 		{
 			for(j=i+1;j<12;j++)
@@ -71,7 +74,7 @@ public class Warehouse implements Serializable
 			}
 		}
 		System.out.print(name+"\t");
-		for(i=0;i<12;i++)System.out.printf("%.2f元(%d月) ",a[1][i],(int)a[0][i]);
+		for(i=0;i<12;i++)System.out.printf("%.2f元(%d月) ",a[1][i],(int)a[0][i]+1);
 	}
 	
 	public void sortByYear(String name)
@@ -89,7 +92,7 @@ public class Warehouse implements Serializable
 		{
 			Sortclass t=new Sortclass();
 			t.year=key;								//年份赋值给t.year
-			t.yearTuruover=goods.get(name).turnover.get(key)[1][12];	//年营业额赋值给t.yearTuruover
+			t.yearTuruover=goods.get(name).turnover.get(key)[12];	//年营业额赋值给t.yearTuruover
 			temp.add(t);
 		}
 		Collections.sort(temp,comparator);
