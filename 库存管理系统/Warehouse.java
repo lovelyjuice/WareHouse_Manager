@@ -21,7 +21,7 @@ public class Warehouse implements Serializable
 	
 	public void printHouse()
 	{
-		for(String name:goods.keySet())System.out.println(goods.get(name));
+		for(Item temp:this.goods.values())System.out.println(temp);
 	}
 
 	public int fetch(String name,int fetchMount)
@@ -39,6 +39,14 @@ public class Warehouse implements Serializable
 		item.turnover.get(year)[month]+=fetchMount*item.price;
 		item.turnover.get(year)[12]+=fetchMount*item.price;
 		return 2;
+	}
+	
+	public void lackedgoods()
+	{
+		for(Item temp:this.goods.values())
+		{
+			if(temp.mount==0)System.out.println(temp);
+		}
 	}
 	
 	public void sortByMonth(String name,String year)

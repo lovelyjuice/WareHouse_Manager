@@ -28,7 +28,7 @@ public class Interactive
 		int select;
 		while(true)
 		{	try{
-				System.out.println("*****************************************\n请选择操作：\n1.取货  2.下订单  3.刷新库存  4.销售统计\n5.待收货订单  6.历史订单  7.查看仓库  8.保存更改");
+				System.out.println("*****************************************\n请选择操作：\n1.取货  2.下订单  3.刷新库存  4.销售统计\n5.待收货订单  6.历史订单  7.查看仓库  8.查看缺货商品\n9.保存更改");
 				Scanner in = new Scanner(System.in);
 				select=in.nextInt();
 				switch(select)
@@ -74,10 +74,15 @@ public class Interactive
 					house.printHouse();
 					break;
 				case 8:
+					house.lackedgoods();
+					break;
+				case 9:
 					ObjectOutputStream ooshouse=new ObjectOutputStream(new FileOutputStream("D:\\warehouse.dat"));
 					ObjectOutputStream oosform=new ObjectOutputStream(new FileOutputStream("D:\\form.dat"));
 					ooshouse.writeObject(house);
 					oosform.writeObject(form);
+					oosform.close();
+					ooshouse.close();
 					break;
 				}
 			}catch(InputMismatchException e)				//预防错误的输入
